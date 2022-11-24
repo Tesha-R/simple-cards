@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Decks() {
   const [apiData, setApiData] = useState([]);
@@ -15,7 +16,9 @@ function Decks() {
       <div className="column is-4">
         <div className="card" key={deck.id}>
           <div className="card-content">
-            <h2 className="title">{deck.title}</h2>
+            <h2 className="title">
+              <Link to="/deck">{deck.title}</Link>
+            </h2>
             <p>{deck.description}</p>
           </div>
           <p className="card-footer-item has-text-left"># Cards</p>
