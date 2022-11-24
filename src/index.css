@@ -1,0 +1,39 @@
+@import 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css';
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  background-color: #FAFAFA;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: #04172C;
+}
+
+.nav-el {
+  border-bottom: 1px solid #E5E7EB;
+  background-color: #Ffffff;
+}
+
+.navbar-brand {
+  align-items: center;
+}
+
+.logo-el {
+  line-height: 1.125;
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.logo-el a {
+  color: #04172C;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  font-weight: 800;
+  font-size: 5rem;
+}
