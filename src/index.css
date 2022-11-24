@@ -37,3 +37,11 @@ body {
   font-weight: 800;
   font-size: 5rem;
 }
+
+.title {
+  line-height: 1.25;
+}
+
+.subtitle {
+  line-height: 1.35;
+}

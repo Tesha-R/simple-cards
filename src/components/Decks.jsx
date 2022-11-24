@@ -4,20 +4,19 @@ import { Link } from 'react-router-dom';
 
 function Decks() {
   const [apiData, setApiData] = useState([]);
-  console.log(apiData);
   // show data when application loads
   useEffect(() => {
     axios
       .get('http://localhost:3000/decks')
       .then((response) => setApiData(response.data));
-  }, []);
+  }, [apiData]);
   const decks = apiData.map((deck) => {
     return (
       <div className="column is-4">
         <div className="card" key={deck.id}>
           <div className="card-content">
             <h2 className="title">
-              <Link to="/deck">{deck.title}</Link>
+              <Link to={`/decks/${deck.id}`}>{deck.title}</Link>
             </h2>
             <p>{deck.description}</p>
           </div>
