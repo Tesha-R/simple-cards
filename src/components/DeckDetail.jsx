@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 function DeckDetail() {
@@ -8,12 +8,14 @@ function DeckDetail() {
   const [deckData, setDeckData] = useState([]);
   const [cardData, setCardData] = useState([]);
 
-  useEffect(() => {
-    // get decks
-    // get cards
-    // set deck data
-    // set card data`http://localhost:3000/decks/${deckId}`
+  const navigate = useNavigate();
 
+  // get deck id
+  function handleCreateCard() {
+    navigate('/create-card', { state: { deckId: deckId } });
+  }
+
+  useEffect(() => {
     const fetchData = async () => {
       const respDecks = await axios(`http://localhost:3000/decks/${deckId}`);
       const respCards = await axios(
@@ -25,8 +27,6 @@ function DeckDetail() {
     fetchData();
   }, []);
 
-  //console.log('deckData', deckData);
-  console.log('cardData', cardData);
   const cards = cardData.map((card) => {
     return (
       <div className="column is-half">
@@ -70,9 +70,9 @@ function DeckDetail() {
               <button className="button is-link is-outlined">Study</button>
               <button className="button is-link is-outlined">Edit</button>
               <button className="button is-link is-outlined">Delete</button>
-              <Link to="/create-card" className="button is-primary">
-                Add card
-              </Link>
+              <button className="button is-primary" onClick={handleCreateCard}>
+                Add a card
+              </button>
             </div>
           </div>
         </div>

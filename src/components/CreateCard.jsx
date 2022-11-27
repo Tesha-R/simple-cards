@@ -1,17 +1,20 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function CreateCard() {
-  const { deckId } = useParams();
   const [cardFront, setCardFront] = useState('');
   const [cardBack, setCardBack] = useState('');
 
+  // get deckId in state from detail page
+  const { state } = useLocation();
+  //console.log('state', state);
+
   function postData() {
     axios.post('http://localhost:3000/cards', {
-      deckId: deckId,
-      front: '',
-      back: '',
+      deckId: state.deckId,
+      front: cardFront,
+      back: cardBack,
     });
   }
 
@@ -46,7 +49,7 @@ function CreateCard() {
                   ></textarea>
                 </div>
               </div>
-              <button type="submit" className="button">
+              <button type="submit" onClick={postData} className="button">
                 Create a Card
               </button>
             </form>
