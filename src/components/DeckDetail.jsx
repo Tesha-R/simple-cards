@@ -4,25 +4,60 @@ import axios from 'axios';
 
 function DeckDetail() {
   const { serviceId } = useParams();
-  const [apiData, setApiData] = useState('');
+  const [deckData, setDeckData] = useState([]);
+  const [cardData, setCardData] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:3000/decks/${serviceId}`)
-  //     .then((response) => setApiData(apiData));
-  // }, []);
+  useEffect(() => {
+    // get decks
+    // get cards
+    // set deck data
+    // set card data`http://localhost:3000/decks/${serviceId}`
 
-  // const deckDetail = apiData.map((deck)=>{
+    const fetchData = async () => {
+      const respDecks = await axios('http://localhost:3000/decks/1');
+      const respCards = await axios('http://localhost:3000/decks/1/cards');
+      setDeckData(respDecks.data);
+      setCardData(respCards.data);
+    };
+    fetchData();
+  }, []);
 
-  // })
+  //console.log('deckData', deckData);
+  //console.log('cardData', cardData);
+  const cards = cardData.map((card) => {
+    return (
+      <div className="column is-half">
+        <div className="card">
+          <div className="card-content">
+            <div className="block">
+              <h6 className="subtitle is-6">Front</h6>
+              <p className="title is-3 mt-2">{card.front}</p>
+            </div>
+            <div className="block">
+              <h6 className="subtitle is-6">Back</h6>
+              <p className="subtitle is-4">{card.back}</p>
+            </div>
+          </div>
+          <footer className="card-footer">
+            <a href="#" className="card-footer-item">
+              Edit
+            </a>
+            <a href="#" className="card-footer-item">
+              Delete
+            </a>
+          </footer>
+        </div>
+      </div>
+    );
+  });
   return (
     <div className="container is-widescreen mt-6">
       <div className="level">
         <div className="level-left">
           <div className="level-item">
             <div>
-              <h2 className="title is-3 mb-3">Deck title</h2>
-              <p>deck decription</p>
+              <h2 className="title is-3 mb-3">{deckData.title}</h2>
+              <p>{deckData.description}</p>
             </div>
           </div>
         </div>
@@ -37,36 +72,7 @@ function DeckDetail() {
           </div>
         </div>
       </div>
-      <div className="columns">
-        <div className="column is-half">
-          <div className="card">
-            <div className="card-content">
-              <div className="block">
-                <h6 className="subtitle is-6">Front</h6>
-                <p className="title is-3 mt-2">
-                  Differentiate between Real DOM and Virtual DOM
-                </p>
-              </div>
-              <div className="block">
-                <h6 className="subtitle is-6">Back</h6>
-                <p className="subtitle is-4">
-                  Virtual DOM updates are faster but do not directly update the
-                  HTML
-                </p>
-              </div>
-            </div>
-            <footer className="card-footer">
-              <a href="#" className="card-footer-item">
-                Edit
-              </a>
-              <a href="#" className="card-footer-item">
-                Delete
-              </a>
-            </footer>
-          </div>
-        </div>
-        <div className="column is-half"></div>
-      </div>
+      <div className="columns is-multiline">{cards}</div>
     </div>
   );
 }

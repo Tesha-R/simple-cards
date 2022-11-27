@@ -9,7 +9,7 @@ function Decks() {
     axios
       .get('http://localhost:3000/decks')
       .then((response) => setApiData(response.data));
-  }, [apiData]);
+  }, []);
   const decks = apiData.map((deck) => {
     return (
       <div className="column is-4">
