@@ -1,9 +1,10 @@
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import { useParams, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
 function DeckDetail() {
-  const { serviceId } = useParams();
+  const { deckId } = useParams();
   const [deckData, setDeckData] = useState([]);
   const [cardData, setCardData] = useState([]);
 
@@ -11,11 +12,13 @@ function DeckDetail() {
     // get decks
     // get cards
     // set deck data
-    // set card data`http://localhost:3000/decks/${serviceId}`
+    // set card data`http://localhost:3000/decks/${deckId}`
 
     const fetchData = async () => {
-      const respDecks = await axios('http://localhost:3000/decks/1');
-      const respCards = await axios('http://localhost:3000/decks/1/cards');
+      const respDecks = await axios(`http://localhost:3000/decks/${deckId}`);
+      const respCards = await axios(
+        `http://localhost:3000/decks/${deckId}/cards`
+      );
       setDeckData(respDecks.data);
       setCardData(respCards.data);
     };
@@ -23,7 +26,7 @@ function DeckDetail() {
   }, []);
 
   //console.log('deckData', deckData);
-  //console.log('cardData', cardData);
+  console.log('cardData', cardData);
   const cards = cardData.map((card) => {
     return (
       <div className="column is-half">
@@ -67,7 +70,9 @@ function DeckDetail() {
               <button className="button is-link is-outlined">Study</button>
               <button className="button is-link is-outlined">Edit</button>
               <button className="button is-link is-outlined">Delete</button>
-              <button className="button is-primary">Add card</button>
+              <Link to="/create-card" className="button is-primary">
+                Add card
+              </Link>
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import Decks from './components/Decks';
 import Home from './components/Home';
 import CreateDeck from './components/CreateDeck';
 import DeckDetail from './components/DeckDetail';
+import CreateCard from './components/CreateCard';
 import './App.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/decks" element={<Decks />} />
         <Route path="/create-deck" element={<CreateDeck />} />
         <Route path="/decks/:deckId" element={<DeckDetail />} />
+        <Route path="/create-card" element={<CreateCard />} />
       </Routes>
     </>
   );

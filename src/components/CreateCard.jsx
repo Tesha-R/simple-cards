@@ -1,21 +1,17 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-function CreateDeck() {
-  // const [deckForm, setDeckForm] = useState({
-  //   title: '',
-  //   description: '',
-  // });
-  const [deckTitle, setDeckTitle] = useState('');
-  const [deckDescription, setDeckDescription] = useState('');
+function CreateCard() {
+  const { deckId } = useParams();
+  const [cardFront, setCardFront] = useState('');
+  const [cardBack, setCardBack] = useState('');
 
-  // console.log('title', deckTitle);
-  // console.log('description', deckDescription);
-
-  function postDeckData() {
-    axios.post('http://localhost:3000/decks', {
-      title: deckTitle,
-      description: deckDescription,
+  function postData() {
+    axios.post('http://localhost:3000/cards', {
+      deckId: deckId,
+      front: '',
+      back: '',
     });
   }
 
@@ -26,32 +22,32 @@ function CreateDeck() {
           <div className="column is-half">
             <form>
               <div className="field">
-                <label>Deck title</label>
+                <label>Card front</label>
                 <div className="control">
                   <input
                     className="input"
                     type="text"
-                    placeholder="Deck title"
+                    placeholder="Card front"
                     onChange={(e) => {
-                      setDeckTitle(e.target.value);
+                      setCardFront(e.target.value);
                     }}
                   />
                 </div>
               </div>
               <div className="field">
-                <label>Deck description</label>
+                <label>Card back</label>
                 <div className="control">
                   <textarea
                     className="textarea"
                     placeholder="Deck description"
                     onChange={(e) => {
-                      setDeckDescription(e.target.value);
+                      setCardBack(e.target.value);
                     }}
                   ></textarea>
                 </div>
               </div>
-              <button type="submit" onClick={postDeckData} className="button">
-                Create deck
+              <button type="submit" className="button">
+                Create a Card
               </button>
             </form>
           </div>
@@ -61,4 +57,4 @@ function CreateDeck() {
   );
 }
 
-export default CreateDeck;
+export default CreateCard;
