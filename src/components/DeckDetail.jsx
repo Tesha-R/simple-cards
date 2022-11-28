@@ -15,6 +15,13 @@ function DeckDetail() {
     navigate('/create-card', { state: { deckId: deckId } });
   }
 
+  // delete deck and cards and redirect to decks page
+  function handleDeleteDeck() {
+    axios.delete(`http://localhost:3000/decks/${deckId}`);
+    axios.delete(`http://localhost:3000/cards/${deckId}`);
+    navigate('/decks');
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const respDecks = await axios(`http://localhost:3000/decks/${deckId}`);
@@ -69,7 +76,12 @@ function DeckDetail() {
             <div className="buttons">
               <button className="button is-link is-outlined">Study</button>
               <button className="button is-link is-outlined">Edit</button>
-              <button className="button is-link is-outlined">Delete</button>
+              <button
+                className="button is-link is-outlined"
+                onClick={handleDeleteDeck}
+              >
+                Delete
+              </button>
               <button className="button is-primary" onClick={handleCreateCard}>
                 Add a card
               </button>

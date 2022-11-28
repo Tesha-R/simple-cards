@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function CreateCard() {
   const [cardFront, setCardFront] = useState('');
@@ -17,7 +17,6 @@ function CreateCard() {
       back: cardBack,
     });
   }
-
   return (
     <>
       <div className="container is-widescreen mt-6">
