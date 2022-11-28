@@ -13,7 +13,7 @@ function Decks() {
   const decks = apiData.map((deck) => {
     return (
       <div className="column is-4" key={deck.id}>
-        <div className="card">
+        <div className="card deck-el">
           <div className="card-content">
             <h2 className="title">
               <Link to={`/decks/${deck.id}`}>{deck.title}</Link>

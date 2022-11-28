@@ -24,6 +24,7 @@ function CreateDeck() {
       <div className="container is-widescreen mt-6">
         <div className="columns">
           <div className="column is-half">
+            <h2 className="title">Create a new deck</h2>
             <form>
               <div className="field">
                 <label>Deck title</label>
@@ -50,7 +51,11 @@ function CreateDeck() {
                   ></textarea>
                 </div>
               </div>
-              <button type="submit" onClick={postDeckData} className="button">
+              <button
+                type="submit"
+                onClick={postDeckData}
+                className="button is-primary"
+              >
                 Create deck
               </button>
             </form>

@@ -37,7 +37,7 @@ function DeckDetail() {
   const cards = cardData.map((card) => {
     return (
       <div className="column is-half">
-        <div className="card">
+        <div className="card card-el">
           <div className="card-content">
             <div className="block">
               <h6 className="subtitle is-6">Front</h6>
@@ -82,7 +82,10 @@ function DeckDetail() {
               >
                 Delete
               </button>
-              <button className="button is-primary" onClick={handleCreateCard}>
+              <button
+                className="button is-link is-outlined ml-4"
+                onClick={handleCreateCard}
+              >
                 Add a card
               </button>
             </div>

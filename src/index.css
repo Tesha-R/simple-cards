@@ -40,8 +40,50 @@ body {
 
 .title {
   line-height: 1.25;
+  color: #04172C;
 }
 
 .subtitle {
   line-height: 1.35;
+}
+
+.pink-txt {
+  color: #D33182
+}
+
+.purple-txt {
+  color: #8A28C9
+}
+
+.blue-txt {
+  color: #525CFC
+}
+
+.mt-7 {
+  margin-top: 6rem;
+}
+
+.button {
+  font-weight: 600;
+}
+
+.button.is-primary {
+  background: linear-gradient(#D6317E, #8727CB);
+  border-color: #D6317E;
+}
+
+.button.is-primary:hover {
+  background-color: #8727CB !important
+}
+
+.deck-el {
+  border-top: 4px solid #9E64FB;
+}
+
+.card-el {
+  border-top: 4px solid #F8CC32;
+}
+
+.deck-el a {
+  color: #04172C;
 }

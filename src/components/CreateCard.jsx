@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function CreateCard() {
@@ -8,8 +8,8 @@ function CreateCard() {
 
   // get deckId in state from detail page
   const { state } = useLocation();
-  //console.log('state', state);
   const navigate = useNavigate();
+
   function postData(e) {
     e.preventDefault();
     axios.post('http://localhost:3000/cards', {
@@ -24,6 +24,7 @@ function CreateCard() {
       <div className="container is-widescreen mt-6">
         <div className="columns">
           <div className="column is-half">
+            <h2 className="title">Create a card</h2>
             <form>
               <div className="field">
                 <label>Card front</label>
@@ -50,7 +51,11 @@ function CreateCard() {
                   ></textarea>
                 </div>
               </div>
-              <button type="submit" onClick={postData} className="button">
+              <button
+                type="submit"
+                onClick={postData}
+                className="button is-primary"
+              >
                 Create a Card
               </button>
             </form>
