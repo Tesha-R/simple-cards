@@ -9,13 +9,15 @@ function CreateCard() {
   // get deckId in state from detail page
   const { state } = useLocation();
   //console.log('state', state);
-
-  function postData() {
+  const navigate = useNavigate();
+  function postData(e) {
+    e.preventDefault();
     axios.post('http://localhost:3000/cards', {
       deckId: state.deckId,
       front: cardFront,
       back: cardBack,
     });
+    navigate(`/decks/${state.deckId}`);
   }
   return (
     <>
