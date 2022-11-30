@@ -10,7 +10,7 @@ function DeckDetail() {
 
   const navigate = useNavigate();
 
-  // get deck id
+  // get deck id and store in state
   function handleCreateCard() {
     navigate('/create-card', { state: { deckId: deckId } });
   }
