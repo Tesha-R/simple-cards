@@ -12,7 +12,7 @@ function CreateCard() {
 
   function postData(e) {
     e.preventDefault();
-    axios.post('https://json-server-api-lake.vercel.app/cards', {
+    axios.post('http://localhost:3000/cards', {
       deckId: state.deckId,
       front: cardFront,
       back: cardBack,

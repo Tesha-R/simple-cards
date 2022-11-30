@@ -17,18 +17,16 @@ function DeckDetail() {
 
   // delete deck and cards and redirect to decks page
   function handleDeleteDeck() {
-    axios.delete(`https://json-server-api-lake.vercel.app/decks/${deckId}`);
-    axios.delete(`https://json-server-api-lake.vercel.app/cards/${deckId}`);
+    axios.delete(`http://localhost:3000/decks/${deckId}`);
+    axios.delete(`http://localhost:3000/cards/${deckId}`);
     navigate('/decks');
   }
 
   useEffect(() => {
     const fetchData = async () => {
-      const respDecks = await axios(
-        `https://json-server-api-lake.vercel.app/decks/${deckId}`
-      );
+      const respDecks = await axios(`http://localhost:3000/decks/${deckId}`);
       const respCards = await axios(
-        `https://json-server-api-lake.vercel.app/decks/${deckId}/cards`
+        `http://localhost:3000/decks/${deckId}/cards`
       );
       setDeckData(respDecks.data);
       setCardData(respCards.data);
