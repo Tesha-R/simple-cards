@@ -13,7 +13,7 @@ function CreateDeck() {
   // console.log('description', deckDescription);
 
   function postDeckData() {
-    axios.post('http://localhost:3000/decks', {
+    axios.post('https://json-server-api-lake.vercel.app/decks', {
       title: deckTitle,
       description: deckDescription,
     });

@@ -7,7 +7,7 @@ function Decks() {
   // show data when application loads
   useEffect(() => {
     axios
-      .get('http://localhost:3000/decks')
+      .get('https://json-server-api-lake.vercel.app/decks')
       .then((response) => setApiData(response.data));
   }, []);
   const decks = apiData.map((deck) => {
