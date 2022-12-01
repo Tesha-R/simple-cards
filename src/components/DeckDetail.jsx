@@ -16,15 +16,22 @@ function DeckDetail() {
   }
 
   // delete deck and cards and redirect to decks page
-  async function handleDeleteDeck() {
-    try {
-      await axios.delete(`http://localhost:3000/decks/${deckId}`);
-      await axios.delete(`http://localhost:3000/cards/${deckId}`);
-      navigate('/decks');
-    } catch (error) {
-      console.log(error, 'no cards associated with deck id');
-    }
+
+  function handleDeleteDeck() {
+    axios.delete(`http://localhost:3000/decks/${deckId}`);
+    axios.delete(`http://localhost:3000/cards/${deckId}`);
+    navigate('/decks');
   }
+
+  // async function handleDeleteDeck() {
+  //   try {
+  //     await axios.delete(`http://localhost:3000/decks/${deckId}`);
+  //     await axios.delete(`http://localhost:3000/cards/${deckId}`);
+  //     navigate('/decks');
+  //   } catch (error) {
+  //     console.log(error, 'no cards associated with deck id');
+  //   }
+  // }
 
   useEffect(() => {
     const fetchData = async () => {
