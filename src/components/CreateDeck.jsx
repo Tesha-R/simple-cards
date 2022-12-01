@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function CreateDeck() {
   // const [deckForm, setDeckForm] = useState({
@@ -8,15 +9,18 @@ function CreateDeck() {
   // });
   const [deckTitle, setDeckTitle] = useState('');
   const [deckDescription, setDeckDescription] = useState('');
-
+  const navigate = useNavigate();
   // console.log('title', deckTitle);
   // console.log('description', deckDescription);
 
-  function postDeckData() {
-    axios.post('http://localhost:3000/decks', {
-      title: deckTitle,
-      description: deckDescription,
-    });
+  function postDeckData(e) {
+    e.preventDefault();
+    axios
+      .post('http://localhost:3000/decks', {
+        title: deckTitle,
+        description: deckDescription,
+      })
+      .then(({ data }) => navigate(`/decks/${data.id}`));
   }
 
   return (
@@ -25,7 +29,7 @@ function CreateDeck() {
         <div className="columns">
           <div className="column is-half">
             <h2 className="title">Create a new deck</h2>
-            <form>
+            <form onSubmit={postDeckData}>
               <div className="field">
                 <label>Deck title</label>
                 <div className="control">
@@ -51,11 +55,7 @@ function CreateDeck() {
                   ></textarea>
                 </div>
               </div>
-              <button
-                type="submit"
-                onClick={postDeckData}
-                className="button is-primary"
-              >
+              <button type="submit" className="button is-primary">
                 Create deck
               </button>
             </form>

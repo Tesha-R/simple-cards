@@ -8,7 +8,9 @@ function Decks() {
   useEffect(() => {
     axios
       .get('http://localhost:3000/decks')
-      .then((response) => setApiData(response.data));
+      .then((response) =>
+        setApiData(response.data.sort((a, b) => b.id - a.id))
+      );
   }, []);
   const decks = apiData.map((deck) => {
     return (

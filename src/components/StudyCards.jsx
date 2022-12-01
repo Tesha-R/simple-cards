@@ -2,11 +2,17 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import './StudyCards.css';
+
 function StudyCards() {
   const [isCardBack, setIsCardBack] = useState(false); // Toggle front and back of card
   const [cardIndex, setCardIndex] = useState(0); // Keep track of card index
   const [cardsData, setCardsData] = useState(''); // Hold cards data
   const { deckId } = useParams();
+
+  //console.log('cardsData', cardsData[cardIndex].front);
+
+  console.log('isCardBack', isCardBack);
 
   useEffect(() => {
     axios
@@ -30,20 +36,26 @@ function StudyCards() {
   }
 
   function largerTextCard(index) {
-    return cardsData[index].front.length < 10 ? 'txt-lg' : '';
+    return cardsData[index]?.front.length < 10 ? 'txt-lg' : '';
   }
 
   function renderCard() {
     return (
-      <div className="card-inner">
+      <div className="study-study-card-inner">
         {isCardBack && (
-          <div className="card-back">
-            <p className="card-content">{cardsData[cardIndex].back}</p>
+          <div className="study-card-back">
+            <p className="study-card-content subtitle is-4">
+              {cardsData[cardIndex]?.back}
+            </p>
           </div>
         )}
-        <div className="card-front">
-          <p className={'card-content ' + largerTextCard(cardIndex)}>
-            {cardsData[cardIndex].front}
+        <div className="study-card-front">
+          <p
+            className={
+              'study-card-content title is-3 ' + largerTextCard(cardIndex)
+            }
+          >
+            {cardsData[cardIndex]?.front}
           </p>
         </div>
       </div>
@@ -52,10 +64,16 @@ function StudyCards() {
 
   return (
     <>
-      <div className="card-el">{renderCard()}</div>
-      <button onClick={handleFlip}>Flip</button>
-      <button onClick={handlePrev}>Previous</button>
-      <button onClick={handleNext}>Next</button>
+      <div className="study-card-el">{renderCard()}</div>
+      <button onClick={handleFlip} className="button">
+        Flip
+      </button>
+      <button onClick={handlePrev} className="button">
+        Previous
+      </button>
+      <button onClick={handleNext} className="button">
+        Next
+      </button>
     </>
   );
 }

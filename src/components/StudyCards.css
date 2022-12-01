@@ -1,0 +1,43 @@
+.study-card-el {
+    border: 1px solid #000000;
+    position: relative;
+    background-color: #ffffff;
+    position: relative;
+    height: 90vh;
+    width: 90vw;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.study-card-front,
+.study-card-back {
+    background-color: #ffffff;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000000;
+    position: absolute;
+}
+
+.study-card-back {
+    z-index: 1;
+}
+
+.study-card-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.active {
+    z-index: 200;
+}
+
+.txt-lg {
+    font-size: 3rem;
+}

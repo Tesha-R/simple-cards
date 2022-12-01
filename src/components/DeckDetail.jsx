@@ -16,16 +16,22 @@ function DeckDetail() {
   }
 
   // delete deck and cards and redirect to decks page
-  function handleDeleteDeck() {
-    axios.delete(`http://localhost:3000/decks/${deckId}`);
-    axios.delete(`http://localhost:3000/cards/${deckId}`);
-    navigate('/decks');
+  async function handleDeleteDeck() {
+    try {
+      await axios.delete(`http://localhost:3000/decks/${deckId}`);
+      await axios.delete(`http://localhost:3000/cards/${deckId}`);
+      navigate('/decks');
+    } catch (error) {
+      console.log(error, 'no cards associated with deck id');
+    }
   }
 
   useEffect(() => {
     const fetchData = async () => {
-      const respDecks = await axios(`http://localhost:3000/decks/${deckId}`);
-      const respCards = await axios(
+      const respDecks = await axios.get(
+        `http://localhost:3000/decks/${deckId}`
+      );
+      const respCards = await axios.get(
         `http://localhost:3000/decks/${deckId}/cards`
       );
       setDeckData(respDecks.data);
@@ -74,7 +80,12 @@ function DeckDetail() {
         <div className="level-right">
           <div className="level-item">
             <div className="buttons">
-              <button className="button is-link is-outlined">Study</button>
+              <Link
+                to={`/decks/${deckId}/cards`}
+                className="button is-link is-outlined"
+              >
+                Study
+              </Link>
               <button className="button is-link is-outlined">Edit</button>
               <button
                 className="button is-link is-outlined"

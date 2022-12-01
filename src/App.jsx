@@ -7,6 +7,7 @@ import Home from './components/Home';
 import CreateDeck from './components/CreateDeck';
 import DeckDetail from './components/DeckDetail';
 import CreateCard from './components/CreateCard';
+import StudyCards from './components/StudyCards';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/create-deck" element={<CreateDeck />} />
         <Route path="/decks/:deckId" element={<DeckDetail />} />
         <Route path="/create-card" element={<CreateCard />} />
+        <Route path="/decks/:deckId/cards" element={<StudyCards />} />
       </Routes>
     </>
   );
