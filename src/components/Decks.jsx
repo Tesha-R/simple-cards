@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 
 function Decks() {
   const [apiData, setApiData] = useState([]);
+
   // show data when application loads
   useEffect(() => {
     axios
-      .get('http://localhost:3000/decks')
-      .then((response) =>
-        setApiData(response.data.sort((a, b) => b.id - a.id))
-      );
+      .get('http://localhost:3000/decks?_sort=id&_order=desc')
+      .then((response) => setApiData(response.data));
   }, []);
   const decks = apiData.map((deck) => {
     return (

@@ -1,34 +1,45 @@
 import axios from 'axios';
-import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-function CreateCard() {
+function UpdateCard() {
   const [cardFront, setCardFront] = useState('');
   const [cardBack, setCardBack] = useState('');
+  const [deckId, setDeckId] = useState('');
 
-  const { state } = useLocation(); // get deckId in state from detail page
+  const { cardId } = useParams();
   const navigate = useNavigate();
 
-  function postData(e) {
+  useEffect(() => {
+    axios.get(`http://localhost:3000/cards/${cardId}`).then((response) => {
+      setCardFront(response.data.front);
+      setCardBack(response.data.back);
+      setDeckId(response.data.deckId);
+    });
+  }, []);
+
+  function updateCard(e) {
     e.preventDefault();
-    axios.post('http://localhost:3000/cards', {
-      deckId: state.deckId,
+    axios.put(`http://localhost:3000/cards/${cardId}`, {
       front: cardFront,
       back: cardBack,
+      deckId: deckId,
     });
-    navigate(`/decks/${state.deckId}`);
+    navigate(`/decks/${deckId}`);
   }
+
   return (
     <>
       <div className="container is-widescreen mt-6">
         <div className="columns">
           <div className="column is-half">
-            <h2 className="title">Create a card</h2>
-            <form>
+            <h2 className="title">Update card</h2>
+            <form onSubmit={updateCard}>
               <div className="field">
                 <label>Card front</label>
                 <div className="control">
                   <input
+                    value={cardFront}
                     className="input"
                     type="text"
                     placeholder="Card front"
@@ -42,6 +53,7 @@ function CreateCard() {
                 <label>Card back</label>
                 <div className="control">
                   <textarea
+                    value={cardBack}
                     className="textarea"
                     placeholder="Deck description"
                     onChange={(e) => {
@@ -50,12 +62,8 @@ function CreateCard() {
                   ></textarea>
                 </div>
               </div>
-              <button
-                type="submit"
-                onClick={postData}
-                className="button is-primary"
-              >
-                Create a Card
+              <button type="submit" className="button is-primary">
+                Update Card
               </button>
             </form>
           </div>
@@ -65,4 +73,4 @@ function CreateCard() {
   );
 }
 
-export default CreateCard;
+export default UpdateCard;

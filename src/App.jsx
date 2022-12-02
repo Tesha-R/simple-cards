@@ -8,6 +8,8 @@ import CreateDeck from './components/CreateDeck';
 import DeckDetail from './components/DeckDetail';
 import CreateCard from './components/CreateCard';
 import StudyCards from './components/StudyCards';
+import UpdateDeck from './components/UpdateDeck';
+import UpdateCard from './components/UpdateCard';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/decks/:deckId" element={<DeckDetail />} />
         <Route path="/create-card" element={<CreateCard />} />
         <Route path="/decks/:deckId/cards" element={<StudyCards />} />
+        <Route path="/decks/:deckId/edit-deck" element={<UpdateDeck />} />
+        <Route path="/cards/:cardId/edit-card" element={<UpdateCard />} />
       </Routes>
     </>
   );

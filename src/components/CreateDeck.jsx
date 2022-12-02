@@ -3,15 +3,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function CreateDeck() {
-  // const [deckForm, setDeckForm] = useState({
-  //   title: '',
-  //   description: '',
-  // });
   const [deckTitle, setDeckTitle] = useState('');
   const [deckDescription, setDeckDescription] = useState('');
   const navigate = useNavigate();
-  // console.log('title', deckTitle);
-  // console.log('description', deckDescription);
 
   function postDeckData(e) {
     e.preventDefault();

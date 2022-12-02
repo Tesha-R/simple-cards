@@ -1,10 +1,10 @@
 .study-card-el {
-    border: 1px solid #000000;
+    border-top: 4px solid #F8CC32;
     position: relative;
     background-color: #ffffff;
     position: relative;
-    height: 90vh;
-    width: 90vw;
+    height: 80vh;
+    width: 100%;
     margin: 0 auto;
     overflow: hidden;
 }
@@ -19,7 +19,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #000000;
     position: absolute;
 }
 
@@ -39,5 +38,9 @@
 }
 
 .txt-lg {
-    font-size: 3rem;
+    font-size: 4rem !important;
+}
+
+.study-btns {
+    justify-content: center !important;
 }

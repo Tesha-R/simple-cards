@@ -1,13 +1,12 @@
 import axios from 'axios';
-
-import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 function DeckDetail() {
-  const { deckId } = useParams();
   const [deckData, setDeckData] = useState([]);
   const [cardData, setCardData] = useState([]);
 
+  const { deckId } = useParams();
   const navigate = useNavigate();
 
   // get deck id and store in state
@@ -16,13 +15,17 @@ function DeckDetail() {
   }
 
   // delete deck and cards and redirect to decks page
-
   function handleDeleteDeck() {
     axios.delete(`http://localhost:3000/decks/${deckId}`);
     axios.delete(`http://localhost:3000/cards/${deckId}`);
     navigate('/decks');
   }
-
+  // delete card and reload page
+  async function handleDeleteCard(e) {
+    const cardId = e.target.dataset.id;
+    await axios.delete(`http://localhost:3000/cards/${cardId}`);
+    window.location.reload();
+  }
   // async function handleDeleteDeck() {
   //   try {
   //     await axios.delete(`http://localhost:3000/decks/${deckId}`);
@@ -62,12 +65,19 @@ function DeckDetail() {
             </div>
           </div>
           <footer className="card-footer">
-            <a href="#" className="card-footer-item">
+            <Link
+              to={`/cards/${card.id}/edit-card`}
+              className="card-footer-item"
+            >
               Edit
-            </a>
-            <a href="#" className="card-footer-item">
+            </Link>
+            <button
+              onClick={handleDeleteCard}
+              data-id={card.id}
+              className=" button is-ghost card-footer-item"
+            >
               Delete
-            </a>
+            </button>
           </footer>
         </div>
       </div>
@@ -93,7 +103,12 @@ function DeckDetail() {
               >
                 Study
               </Link>
-              <button className="button is-link is-outlined">Edit</button>
+              <Link
+                to={`/decks/${deckId}/edit-deck`}
+                className="button is-link is-outlined"
+              >
+                Edit
+              </Link>
               <button
                 className="button is-link is-outlined"
                 onClick={handleDeleteDeck}

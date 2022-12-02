@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import './StudyCards.css';
 
@@ -8,11 +8,9 @@ function StudyCards() {
   const [isCardBack, setIsCardBack] = useState(false); // Toggle front and back of card
   const [cardIndex, setCardIndex] = useState(0); // Keep track of card index
   const [cardsData, setCardsData] = useState(''); // Hold cards data
+
   const { deckId } = useParams();
-
-  //console.log('cardsData', cardsData[cardIndex].front);
-
-  console.log('isCardBack', isCardBack);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -36,7 +34,7 @@ function StudyCards() {
   }
 
   function largerTextCard(index) {
-    return cardsData[index]?.front.length < 10 ? 'txt-lg' : '';
+    return cardsData[index]?.front.length < 15 ? 'txt-lg' : '';
   }
 
   function renderCard() {
@@ -44,7 +42,7 @@ function StudyCards() {
       <div className="study-study-card-inner">
         {isCardBack && (
           <div className="study-card-back">
-            <p className="study-card-content subtitle is-4">
+            <p className="study-card-content subtitle is-3">
               {cardsData[cardIndex]?.back}
             </p>
           </div>
@@ -64,16 +62,25 @@ function StudyCards() {
 
   return (
     <>
-      <div className="study-card-el">{renderCard()}</div>
-      <button onClick={handleFlip} className="button">
-        Flip
-      </button>
-      <button onClick={handlePrev} className="button">
-        Previous
-      </button>
-      <button onClick={handleNext} className="button">
-        Next
-      </button>
+      <div className="container is-widescreen mt-6">
+        <div className="block mb- 6">
+          <div className="button" onClick={() => navigate(-1)}>
+            Go Back to deck
+          </div>
+        </div>
+        <div className="study-card-el box ">{renderCard()}</div>
+        <div className="buttons study-btns">
+          <button onClick={handlePrev} className="button is-link is-light">
+            Previous
+          </button>
+          <button onClick={handleFlip} className="button is-link">
+            Flip
+          </button>
+          <button onClick={handleNext} className="button is-link is-light">
+            Next
+          </button>
+        </div>
+      </div>
     </>
   );
 }
