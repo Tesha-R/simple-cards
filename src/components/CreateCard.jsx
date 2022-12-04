@@ -60,9 +60,6 @@ function CreateCard() {
                 </div>
               </div>
               <div className="buttons">
-                <button className="button" onClick={() => navigate(-1)}>
-                  Cancel
-                </button>
                 <button type="submit" className="button is-link">
                   Create a Card
                 </button>

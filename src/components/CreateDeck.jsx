@@ -57,12 +57,11 @@ function CreateDeck() {
                   ></textarea>
                 </div>
               </div>
-              <button className="button" onClick={() => navigate(-1)}>
-                Cancel
-              </button>
-              <button type="submit" className="button is-link">
-                Create deck
-              </button>
+              <div className="buttons">
+                <button type="submit" className="button is-link">
+                  Create deck
+                </button>
+              </div>
             </form>
           </div>
         </div>
