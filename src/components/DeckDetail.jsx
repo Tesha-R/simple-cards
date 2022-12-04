@@ -86,7 +86,6 @@ function DeckDetail() {
     };
     getCards();
   }, []);
-  console.log(cardData);
 
   const cards = cardData.map((card) => {
     return (

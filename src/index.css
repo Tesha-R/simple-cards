@@ -87,3 +87,7 @@ body {
 .deck-el a {
   color: #04172C;
 }
+
+.navbar-menu {
+  display: inline;
+}

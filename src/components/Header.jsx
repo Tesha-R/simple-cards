@@ -9,7 +9,8 @@ function Header() {
             <h1 className="logo-el is-size-4">
               <Link to="/">SimpleCards</Link>
             </h1>
-            <a
+            {/* <a
+              onClick={handleMobileClick}
               role="button"
               className="navbar-burger"
               aria-label="menu"
@@ -19,7 +20,7 @@ function Header() {
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
-            </a>
+            </a> */}
           </div>
           <div className="navbar-menu">
             <div className="navbar-end">
