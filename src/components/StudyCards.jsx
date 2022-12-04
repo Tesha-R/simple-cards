@@ -1,21 +1,39 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+
+import { query, collection, where, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
 
 import './StudyCards.css';
 
 function StudyCards() {
   const [isCardBack, setIsCardBack] = useState(false); // Toggle front and back of card
   const [cardIndex, setCardIndex] = useState(0); // Keep track of card index
-  const [cardsData, setCardsData] = useState(''); // Hold cards data
+  const [cardsData, setCardsData] = useState([]); // Hold cards data
 
   const { deckId } = useParams();
   const navigate = useNavigate();
 
+  // get cards associated with deck
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/decks/${deckId}/cards`)
-      .then((response) => setCardsData(response.data));
+    const getCards = async () => {
+      const queryCards = query(
+        collection(db, 'cards'),
+        where('deckId', '==', deckId)
+      );
+      const querySnapshot = await getDocs(queryCards);
+      let arr = [];
+      querySnapshot.forEach((doc) => {
+        arr.push({
+          id: doc.id,
+          front: doc.data().front,
+          back: doc.data().back,
+          deckId: doc.data().deckId,
+        });
+        setCardsData(arr);
+      });
+    };
+    getCards();
   }, []);
 
   function handleNext() {
@@ -23,12 +41,13 @@ function StudyCards() {
       setCardIndex(cardIndex + 1);
     }
   }
+
   function handlePrev() {
     if (cardIndex < cardsData.length && cardIndex !== 0) {
       setCardIndex(cardIndex - 1);
     }
-    console.log('cardIndex', cardIndex);
   }
+
   function handleFlip() {
     setIsCardBack((prevState) => !prevState);
   }

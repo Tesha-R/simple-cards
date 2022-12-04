@@ -2,20 +2,28 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { db } from '../firebase';
+
 function CreateDeck() {
   const [deckTitle, setDeckTitle] = useState('');
   const [deckDescription, setDeckDescription] = useState('');
   const navigate = useNavigate();
 
-  function postDeckData(e) {
+  const postDeckData = async (e) => {
     e.preventDefault();
-    axios
-      .post('http://localhost:3000/decks', {
+    try {
+      await addDoc(collection(db, 'decks'), {
         title: deckTitle,
         description: deckDescription,
-      })
-      .then(({ data }) => navigate(`/decks/${data.id}`));
-  }
+        created: Timestamp.now(),
+      }).then(({ id }) => {
+        navigate(`/decks/${id}`);
+      });
+    } catch (err) {
+      alert(err);
+    }
+  };
 
   return (
     <>
@@ -49,7 +57,10 @@ function CreateDeck() {
                   ></textarea>
                 </div>
               </div>
-              <button type="submit" className="button is-primary">
+              <button className="button" onClick={() => navigate(-1)}>
+                Cancel
+              </button>
+              <button type="submit" className="button is-link">
                 Create deck
               </button>
             </form>

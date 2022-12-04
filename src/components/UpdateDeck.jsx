@@ -2,6 +2,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
+
 function UpdateDeck() {
   const [deckTitle, setDeckTitle] = useState('');
   const [deckDescription, setDeckDescription] = useState('');
@@ -9,21 +12,34 @@ function UpdateDeck() {
   const { deckId } = useParams();
   const navigate = useNavigate();
 
+  // Get deck title
   useEffect(() => {
-    axios.get(`http://localhost:3000/decks/${deckId}`).then((response) => {
-      setDeckTitle(response.data.title);
-      setDeckDescription(response.data.description);
-    });
+    const getDeck = async () => {
+      try {
+        const docRef = doc(db, 'decks', deckId);
+        const docSnap = await getDoc(docRef);
+        setDeckTitle(docSnap.data().title);
+        setDeckDescription(docSnap.data().description);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getDeck();
   }, []);
 
-  function updateDeck(e) {
+  const updateDeck = async (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:3000/decks/${deckId}`, {
-      title: deckTitle,
-      description: deckDescription,
-    });
-    navigate(`/decks/${deckId}`);
-  }
+    const deckDocRef = doc(db, 'decks', deckId);
+    try {
+      await updateDoc(deckDocRef, {
+        title: deckTitle,
+        description: deckDescription,
+      });
+      navigate(`/decks/${deckId}`);
+    } catch (err) {
+      alert(err);
+    }
+  };
 
   return (
     <div className="container is-widescreen mt-6">
@@ -58,9 +74,14 @@ function UpdateDeck() {
                 ></textarea>
               </div>
             </div>
-            <button type="submit" className="button is-primary">
-              Update deck
-            </button>
+            <div className="buttons">
+              <div className="button" onClick={() => navigate(-1)}>
+                Cancel
+              </div>
+              <button type="submit" className="button is-link">
+                Update deck
+              </button>
+            </div>
           </form>
         </div>
       </div>
