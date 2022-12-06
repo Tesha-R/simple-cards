@@ -2,9 +2,6 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
-import { db } from '../firebase';
-
 function CreateCard() {
   const [cardFront, setCardFront] = useState('');
   const [cardBack, setCardBack] = useState('');
@@ -12,28 +9,22 @@ function CreateCard() {
   const { state } = useLocation(); // get deckId in state from detail page
   const navigate = useNavigate();
 
-  const postCardData = async (e) => {
+  function postData(e) {
     e.preventDefault();
-    try {
-      await addDoc(collection(db, 'cards'), {
-        deckId: state.deckId,
-        front: cardFront,
-        back: cardBack,
-        created: Timestamp.now(),
-      });
-      navigate(`/decks/${state.deckId}`);
-    } catch (err) {
-      alert(err);
-    }
-  };
-
+    axios.post('http://localhost:3000/cards', {
+      deckId: state.deckId,
+      front: cardFront,
+      back: cardBack,
+    });
+    navigate(`/decks/${state.deckId}`);
+  }
   return (
     <>
       <div className="container is-widescreen mt-6">
         <div className="columns">
           <div className="column is-half">
             <h2 className="title">Create a card</h2>
-            <form onSubmit={postCardData}>
+            <form>
               <div className="field">
                 <label>Card front</label>
                 <div className="control">
@@ -60,7 +51,18 @@ function CreateCard() {
                 </div>
               </div>
               <div className="buttons">
-                <button type="submit" className="button is-link">
+                <button
+                  type="button"
+                  className="button"
+                  onClick={() => navigate(-1)}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  onClick={postData}
+                  className="button is-link"
+                >
                   Create a Card
                 </button>
               </div>

@@ -2,37 +2,24 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
-import { db } from '../firebase';
-
 function Decks() {
   const [apiData, setApiData] = useState([]);
 
   // show data when application loads
   useEffect(() => {
-    const queryDecks = query(
-      collection(db, 'decks'),
-      orderBy('created', 'desc')
-    );
-    onSnapshot(queryDecks, (querySnapshot) => {
-      setApiData(
-        querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      );
-    });
+    axios
+      .get('http://localhost:3000/decks?_sort=id&_order=desc')
+      .then((response) => setApiData(response.data));
   }, []);
-
   const decks = apiData.map((deck) => {
     return (
-      <div className="column is-4">
+      <div className="column is-4" key={deck.id}>
         <div className="card deck-el">
-          <div className="card-content" key={deck.id}>
+          <div className="card-content">
             <h2 className="title">
-              <Link to={`/decks/${deck.id}`}>{deck.data.title}</Link>
+              <Link to={`/decks/${deck.id}`}>{deck.title}</Link>
             </h2>
-            <p>{deck.data.description}</p>
+            <p>{deck.description}</p>
           </div>
           <p className="card-footer-item has-text-left"># Cards</p>
         </div>

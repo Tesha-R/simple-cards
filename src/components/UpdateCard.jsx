@@ -2,9 +2,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { doc, updateDoc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
-
 function UpdateCard() {
   const [cardFront, setCardFront] = useState('');
   const [cardBack, setCardBack] = useState('');
@@ -14,34 +11,22 @@ function UpdateCard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getCard = async () => {
-      try {
-        const docRef = doc(db, 'cards', cardId);
-        const docSnap = await getDoc(docRef);
-        setCardFront(docSnap.data().front);
-        setCardBack(docSnap.data().back);
-        setDeckId(docSnap.data().deckId);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getCard();
+    axios.get(`http://localhost:3000/cards/${cardId}`).then((response) => {
+      setCardFront(response.data.front);
+      setCardBack(response.data.back);
+      setDeckId(response.data.deckId);
+    });
   }, []);
 
-  const updateCard = async (e) => {
+  function updateCard(e) {
     e.preventDefault();
-    const cardDocRef = doc(db, 'cards', cardId);
-    try {
-      await updateDoc(cardDocRef, {
-        front: cardFront,
-        back: cardBack,
-        deckId: deckId,
-      });
-      navigate(`/decks/${deckId}`);
-    } catch (err) {
-      alert(err);
-    }
-  };
+    axios.put(`http://localhost:3000/cards/${cardId}`, {
+      front: cardFront,
+      back: cardBack,
+      deckId: deckId,
+    });
+    navigate(`/decks/${deckId}`);
+  }
 
   return (
     <>
@@ -78,10 +63,14 @@ function UpdateCard() {
                 </div>
               </div>
               <div className="buttons">
-                <button className="button" onClick={() => navigate(-1)}>
+                <button
+                  type="button"
+                  className="button"
+                  onClick={() => navigate(-1)}
+                >
                   Cancel
                 </button>
-                <button type="submit" className="button is-link">
+                <button type="submit" className="button is-primary">
                   Update Card
                 </button>
               </div>
