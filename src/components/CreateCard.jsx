@@ -50,13 +50,22 @@ function CreateCard() {
                   ></textarea>
                 </div>
               </div>
-              <button
-                type="submit"
-                onClick={postData}
-                className="button is-primary"
-              >
-                Create a Card
-              </button>
+              <div className="buttons">
+                <button
+                  type="button"
+                  className="button"
+                  onClick={() => navigate(-1)}
+                >
+                  go back
+                </button>
+                <button
+                  type="submit"
+                  onClick={postData}
+                  className="button is-link"
+                >
+                  Create a Card
+                </button>
+              </div>
             </form>
           </div>
         </div>

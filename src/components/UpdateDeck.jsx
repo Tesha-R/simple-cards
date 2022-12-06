@@ -58,9 +58,18 @@ function UpdateDeck() {
                 ></textarea>
               </div>
             </div>
-            <button type="submit" className="button is-primary">
-              Update deck
-            </button>
+            <div className="buttons">
+              <button
+                type="button"
+                className="button"
+                onClick={() => navigate(-1)}
+              >
+                go back
+              </button>
+              <button type="submit" className="button is-primary">
+                Update deck
+              </button>
+            </div>
           </form>
         </div>
       </div>

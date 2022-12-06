@@ -26,15 +26,6 @@ function DeckDetail() {
     await axios.delete(`http://localhost:3000/cards/${cardId}`);
     window.location.reload();
   }
-  // async function handleDeleteDeck() {
-  //   try {
-  //     await axios.delete(`http://localhost:3000/decks/${deckId}`);
-  //     await axios.delete(`http://localhost:3000/cards/${deckId}`);
-  //     navigate('/decks');
-  //   } catch (error) {
-  //     console.log(error, 'no cards associated with deck id');
-  //   }
-  // }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,43 +76,39 @@ function DeckDetail() {
   });
   return (
     <div className="container is-widescreen mt-6">
-      <div className="level">
-        <div className="level-left">
-          <div className="level-item">
-            <div>
-              <h2 className="title is-3 mb-3">{deckData.title}</h2>
-              <p>{deckData.description}</p>
-            </div>
+      <div className="columns is-vcentered">
+        <div className="column is-8">
+          <div>
+            <h2 className="title is-3 mb-3">{deckData.title}</h2>
+            <p>{deckData.description}</p>
           </div>
         </div>
-        <div className="level-right">
-          <div className="level-item">
-            <div className="buttons">
-              <Link
-                to={`/decks/${deckId}/cards`}
-                className="button is-link is-outlined"
-              >
-                Study
-              </Link>
-              <Link
-                to={`/decks/${deckId}/edit-deck`}
-                className="button is-link is-outlined"
-              >
-                Edit
-              </Link>
-              <button
-                className="button is-link is-outlined"
-                onClick={handleDeleteDeck}
-              >
-                Delete
-              </button>
-              <button
-                className="button is-link is-outlined ml-4"
-                onClick={handleCreateCard}
-              >
-                Add a card
-              </button>
-            </div>
+        <div className="column">
+          <div className="buttons">
+            <Link
+              to={`/decks/${deckId}/cards`}
+              className="button is-link is-outlined"
+            >
+              Study
+            </Link>
+            <Link
+              to={`/decks/${deckId}/edit-deck`}
+              className="button is-link is-outlined"
+            >
+              Edit
+            </Link>
+            <button
+              className="button is-link is-outlined"
+              onClick={handleDeleteDeck}
+            >
+              Delete
+            </button>
+            <button
+              className="button is-link is-outlined ml-4"
+              onClick={handleCreateCard}
+            >
+              Add a card
+            </button>
           </div>
         </div>
       </div>

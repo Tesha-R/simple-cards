@@ -62,9 +62,18 @@ function UpdateCard() {
                   ></textarea>
                 </div>
               </div>
-              <button type="submit" className="button is-primary">
-                Update Card
-              </button>
+              <div className="buttons">
+                <button
+                  type="button"
+                  className="button"
+                  onClick={() => navigate(-1)}
+                >
+                  go back
+                </button>
+                <button type="submit" className="button is-primary">
+                  Update Card
+                </button>
+              </div>
             </form>
           </div>
         </div>
