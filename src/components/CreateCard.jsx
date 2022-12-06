@@ -56,7 +56,7 @@ function CreateCard() {
                   className="button"
                   onClick={() => navigate(-1)}
                 >
-                  go back
+                  Cancel
                 </button>
                 <button
                   type="submit"

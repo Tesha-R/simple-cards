@@ -64,7 +64,7 @@ function UpdateDeck() {
                 className="button"
                 onClick={() => navigate(-1)}
               >
-                go back
+                Cancel
               </button>
               <button type="submit" className="button is-primary">
                 Update deck
